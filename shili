@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清明雨落，云寄相思</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+        }
+        
+        body {
+            background: url('file:///C:/Users/liqingqian/Desktop/11283626_090937941100_2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(181, 227, 197, 0.6);
+            z-index: -1;
+        }
+        
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px 0;
+            transform: rotate(45deg);
+            animation: falling linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes falling {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) rotate(45deg) scale(0.5);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(360deg) scale(0.8);
+            }
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        
+        .deceased-name {
+            font-size: 1.8rem;
+            margin-top: 20px;
+            font-weight: normal;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            min-height: 40px;
+        }
+        
+        .container {
+            width: 60%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+        
+        .message-form {
+            background-color: rgba(227, 237, 235, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+        
+        .message-form:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #f0f0f0;
+            letter-spacing: 1px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        /* 优化按钮样式 */
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 80px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px);
+        }
+        
+        .action-btn .icon {
+            width: 60px;
+            height: 60px;
+            background-color: #f5f5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-btn .text {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .btn {
+            background-color: #4a7c59;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #3a6a49;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .footer a {
+            color: #4a7c59;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .danmu-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            margin: 30px 0;
+            border-top: 1px solid rgba(207, 229, 155, 0.5);
+            border-bottom: 1px solid rgba(207, 229, 155, 0.5);
+        }
+        
+        .danmu {
+            position: absolute;
+            white-space: nowrap;
+            color: rgb(69, 133, 152);
+            font-size: 18px;
+            padding: 5px 10px;
+            background-color: rgba(250, 250, 248, 0.5);
+            border-radius: 20px;
+            animation: danmuMove linear;
+        }
+        
+        @keyframes danmuMove {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .flower {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            opacity: 0;
+            animation: flowerFade 2s ease-out;
+            z-index: 10;
+        }
+        
+        @keyframes flowerFade {
+            0% {
+                opacity: 1;
+                transform: scale(0.5) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5) rotate(45deg);
+            }
+        }
+        
+        /* 动画容器 */
+        .animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            display: none;
+        }
+        
+        /* 动画关键帧 */
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fade-in-out {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        /* 按钮点击反馈动画 */
+        @keyframes buttonPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: buttonPulse 0.5s ease-in-out;
+        }
+        
+        /* 反馈弹窗样式 */
+        .feedback-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .feedback-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .feedback-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 80%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+        
+        .feedback-modal.show .feedback-content {
+            transform: translateY(0);
+        }
+        
+        .feedback-message {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .feedback-close {
+            background-color: #4a7c59;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .feedback-close:hover {
+            background-color: #3a6a49;
+        }
+        
+        .feedback-petals {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(32, 109, 90, 0.7);
+            margin-top: auto;
+        }
+        
+        footer a {
+            color: #f7fafa;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <header>
+        <h1>清明雨落，云寄相思</h1>
+        <div class="deceased-name" id="deceased-name"></div>
+    </header>
+    
+    <div class="container">
+        <div class="message-form">
+            <div class="form-group">
+                <input type="text" id="name" placeholder="请输入逝者称呼（选填）">
+            </div>
+            <div class="form-group">
+                <textarea id="message" placeholder="请输入思念寄语..."></textarea>
+            </div>
+            <button class="btn" id="submit-btn">提交</button>
+
+            <div class="action-buttons">
+                <div class="action-btn" id="paper-btn">
+                    <div class="icon"><img src="file:///C:/Users/liqingqian/Downloads/现金钞票.svg" width="35" height="35" alt="现金钞票"></div>
+                    <div class="text">烧纸</div>
+                </div>
+                
+                <div class="action-btn" id="flower-btn">
+                    <div class="icon"><img src="file:///C:/Users/liqingqian/Downloads/捧花.svg" width="40" height="40" alt="花朵"></div>
+                    <div class="text">献花</div>
+                </div>
+                
+                <div class="action-btn" id="wine-btn">
+                    <div class="icon">🍶</div>
+                    <div class="text">敬酒</div>
+                </div>
+                
+                <div class="action-btn" id="incense-btn">
+                    <div class="icon">🕯️</div>
+                    <div class="text">上香</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="danmu-container" id="danmu-container">
+            <!-- 弹幕将通过JS动态添加 -->
+        </div>
+    </div>
+    
+    <!-- 动画容器 -->
+    <div class="animation-container" id="paperAnimation"></div>
+    <div class="animation-container" id="flowerAnimation"></div>
+    <div class="animation-container" id="wineAnimation"></div>
+    <div class="animation-container" id="incenseAnimation"></div>
+    
+    <!-- 反馈弹窗 -->
+    <div class="feedback-modal" id="feedbackModal">
+        <div class="feedback-content">
+            <div class="feedback-petals" id="feedbackPetals"></div>
+            <div class="feedback-message">清明雨上，愿我们所有的追思，都有归宿</div>
+            <button class="feedback-close" id="feedbackClose">确定</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>由众安保险DevPilot生成，官网地址：<a href="https://devpilot.zhongan.com/" target="_blank">https://devpilot.zhongan.com/</a></p>
+    </footer>
+
+    <script>
+        // 创建梨花飘落效果
+        function createPetals() {
+            const body = document.querySelector('body');
+            const petalCount = 50;
+            
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // 随机位置和动画时间
+                const left = Math.random() * 100;
+                const animationDuration = 5 + Math.random() * 10;
+                const animationDelay = Math.random() * 10;
+                
+                petal.style.left = `${left}%`;
+                petal.style.animationDuration = `${animationDuration}s`;
+                petal.style.animationDelay = `${animationDelay}s`;
+                
+                body.appendChild(petal);
+            }
+        }
+        
+        // 添加弹幕
+        function addDanmu(text, name) {
+            const container = document.getElementById('danmu-container');
+            const danmu = document.createElement('div');
+            danmu.classList.add('danmu');
+            
+            // 随机高度
+            const top = Math.random() * 160;
+            danmu.style.top = `${top}px`;
+            
+            // 随机速度
+            const duration = 10 + Math.random() * 15;
+            danmu.style.animationDuration = `${duration}s`;
+            
+            // 设置内容
+            danmu.textContent = name ? `${name}：${text}` : text;
+            
+            container.appendChild(danmu);
+            
+            // 动画结束后移除
+            setTimeout(() => {
+                danmu.remove();
+            }, duration * 1000);
+        }
+        
+        // 添加菊花
+        function addFlower(event) {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            
+            
+            // 设置位置
+            flower.style.left = `${event.clientX - 30}px`;
+            flower.style.top = `${event.clientY - 30}px`;
+            
+            document.body.appendChild(flower);
+            
+            // 动画结束后移除
+            setTimeout(() => {
+                flower.remove();
+            }, 2000);
+        }
+        
+        // 显示祭祀动画
+        function showAnimation(type) {
+            const container = document.getElementById(`${type}Animation`);
+            container.style.display = 'block';
+            container.innerHTML = '';
+            
+            let html = '';
+            const itemCount = 20;
+            
+            switch(type) {
+                case 'paper':
+                    // 烧纸动画
+                    for (let i = 0; i < itemCount; i++) {
+                        const left = Math.random() * 100;
+                        const delay = Math.random() * 2;
+                        const duration = Math.random() * 3 + 4;
+                        const size = Math.random() * 20 + 20;
+                        
+                        
+                        html += `<div style="
+                            position: absolute;
+                            left: ${left}vw;
+                            bottom: 0;
+                            animation: float-up ${duration}s ease-out ${delay}s forwards;
+                        "><object type="image/svg+xml" data="file:///C:/Users/liqingqian/Downloads/现金钞票.svg" width="${size}" height="${size}"></object></div>`;
+                    }
+                    
+                    
+                    // 添加弹幕
+                    addDanmu("雨洒樱落，寄托哀思");
+                    break;
+                    
+                case 'flower':
+                    // 献花动画
+                    const flowers = ['<img src="file:///C:/Users/liqingqian/Downloads/捧花.svg" width="60" height="60" alt="花朵">'
+];
+                    for (let i = 0; i < itemCount; i++) {
+                        const left = Math.random() * 100;
+                        const top = Math.random() * 100;
+                        const delay = Math.random() * 2;
+                        const duration = Math.random() * 3 + 2;
+                        const size = Math.random() * 20 + 20;
+                        const flower = flowers[Math.floor(Math.random() * flowers.length)];
+                        
+                        html += `<div style="
+                            position: absolute;
+                            left: ${left}vw;
+                            top: ${top}vh;
+                            font-size: ${size}px;
+                            animation: fade-in-out ${duration}s ease-in-out ${delay}s infinite;
+                        ">${flower}</div>`;
+                    }
+                    
+                    // 添加弹幕
+                    addDanmu("献花寄托，以表哀思");
+                    break;
+                    
+                case 'wine':
+                    // 敬酒动画
+                    const wines = ['🍶'];
+                    for (let i = 0; i < itemCount; i++) {
+                        const left = Math.random() * 100;
+                        const top = Math.random() * 100;
+                        const delay = Math.random() * 2;
+                        const duration = Math.random() * 3 + 2;
+                        const size = Math.random() * 20 + 20;
+                        const wine = wines[Math.floor(Math.random() * wines.length)];
+                        
+                        html += `<div style="
+                            position: absolute;
+                            left: ${left}vw;
+                            top: ${top}vh;
+                            font-size: ${size}px;
+                            animation: fade-in-out ${duration}s ease-in-out ${delay}s infinite;
+                        ">${wine}</div>`;
+                    }
+                    
+                    // 添加弹幕
+                    addDanmu("敬您一杯，一路走好");
+                    break;
+                    
+                case 'incense':
+                    // 上香动画
+                    for (let i = 0; i < itemCount; i++) {
+                        const left = Math.random() * 100;
+                        const delay = Math.random() * 2;
+                        const duration = Math.random() * 3 + 4;
+                        const size = Math.random() * 10 + 10;
+                        
+                        html += `<div style="
+                            position: absolute;
+                            left: ${left}vw;
+                            bottom: 20vh;
+                            font-size: ${size}px;
+                            animation: float-up ${duration}s ease-out ${delay}s forwards;
+                        ">🕯️</div>`;
+                    }
+                    
+                    // 添加香火效果
+                    html += `<div style="
+                        position: absolute;
+                        left: 50%;
+                        bottom: 10vh;
+                        transform: translateX(-50%);
+                        font-size: 60px;
+                        animation: fade-in-out 3s infinite;
+                    ">🕯️</div>`;
+                    
+                    // 添加弹幕
+                    addDanmu("点灯上香，愿您在天堂安息");
+                    break;
+            }
+            
+            container.innerHTML = html;
+            
+            // 5秒后隐藏动画
+            setTimeout(() => {
+                container.style.display = 'none';
+            }, 5000);
+        }
+        
+        // 添加按钮点击反馈动画
+        function addButtonFeedback(button) {
+            button.classList.add('pulse');
+            setTimeout(() => {
+                button.classList.remove('pulse');
+            }, 500);
+        }
+        
+        // 在反馈弹窗中创建花瓣效果
+        function createFeedbackPetals() {
+            const container = document.getElementById('feedbackPetals');
+            container.innerHTML = '';
+            
+            const petalCount = 15;
+            
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.style.position = 'absolute';
+                petal.style.width = '15px';
+                petal.style.height = '15px';
+                petal.style.backgroundColor = 'rgba(255, 192, 203, 0.7)';
+                petal.style.borderRadius = '15px 0';
+                
+                // 随机位置和动画
+                const left = Math.random() * 100;
+                const delay = Math.random() * 3;
+                const duration = 3 + Math.random() * 4;
+                
+                petal.style.left = `${left}%`;
+                petal.style.top = '-10px';
+                petal.style.transform = 'rotate(45deg)';
+                petal.style.animation = `falling ${duration}s linear ${delay}s infinite`;
+                
+                container.appendChild(petal);
+            }
+        }
+        
+        // 显示反馈弹窗
+        function showFeedbackModal() {
+            const modal = document.getElementById('feedbackModal');
+            modal.classList.add('show');
+            
+            // 在弹窗中添加飘落的花瓣效果
+            createFeedbackPetals();
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            createPetals();
+            
+            // 示例弹幕
+            const messages = [
+                "清风化雨，思念绵长",
+                "一年一清明 一岁一追思",
+                "又是清明雨上，惟愿平安健康"
+            ];
+            
+            // 随机显示弹幕
+            messages.forEach((msg, index) => {
+                setTimeout(() => {
+                    addDanmu(msg);
+                }, index * 3000);
+            });
+            
+            // 提交按钮事件
+            document.getElementById('submit-btn').addEventListener('click', () => {
+                const name = document.getElementById('name').value;
+                const message = document.getElementById('message').value;
+                
+                if (message) {
+                    addDanmu(message, name);
+                    document.getElementById('message').value = '';
+                    
+                    if (name && !document.getElementById('deceased-name').textContent) {
+                        document.getElementById('deceased-name').textContent = name;
+                    }
+                    
+                    // 添加按钮反馈动画
+                    addButtonFeedback(document.getElementById('submit-btn'));
+                    
+                    // 显示反馈弹窗
+                    showFeedbackModal();
+                }
+            });
+            
+            // 关闭反馈弹窗
+            document.getElementById('feedbackClose').addEventListener('click', () => {
+                document.getElementById('feedbackModal').classList.remove('show');
+            });
+            
+            // 烧纸按钮事件
+            document.getElementById('paper-btn').addEventListener('click', () => {
+                showAnimation('paper');
+                addButtonFeedback(document.getElementById('paper-btn'));
+            });
+            
+            // 献花按钮事件
+            document.getElementById('flower-btn').addEventListener('click', () => {
+                showAnimation('flower');
+                addButtonFeedback(document.getElementById('flower-btn'));
+                
+                // 在页面上随机位置添加菊花
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const randomX = Math.random() * window.innerWidth;
+                        const randomY = Math.random() * (window.innerHeight / 2) + 100;
+                        
+                        const fakeEvent = {
+                            clientX: randomX,
+                            clientY: randomY
+                        };
+                        
+                        addFlower(fakeEvent);
+                    }, i * 300);
+                }
+            });
+            
+            // 敬酒按钮事件
+            document.getElementById('wine-btn').addEventListener('click', () => {
+                showAnimation('wine');
+                addButtonFeedback(document.getElementById('wine-btn'));
+            });
+            
+            // 上香按钮事件
+            document.getElementById('incense-btn').addEventListener('click', () => {
+                showAnimation('incense');
+                addButtonFeedback(document.getElementById('incense-btn'));
+            });
+        });
+    </script>
+</body>
+</html>
