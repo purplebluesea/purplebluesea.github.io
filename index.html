@@ -540,13 +540,17 @@
                         const size = Math.random() * 20 + 20;
                         
                         
-                        html += `<div style="
-                            position: absolute;
-                            left: ${left}vw;
-                            bottom: 0;
-                            animation: float-up ${duration}s ease-out ${delay}s forwards;
-                        "><img src="https://raw.githubusercontent.com/purplebluesea/purplebluesea.github.io/refs/heads/main/%E7%8E%B0%E9%87%91%E9%92%9E%E7%A5%A8.svg"></div>`;
-                    }
+                        html += `
+<div style="
+    position: absolute;
+    left: ${left}vw;
+    bottom: 0;
+    animation: float-up ${duration}s ease-out ${delay}s forwards;
+">
+    <img src="https://raw.githubusercontent.com/purplebluesea/purplebluesea.github.io/main/现金钞票.svg" 
+         alt="钞票图片"
+         style="width: 30; height: 30;">
+</div>`;
                     
                     
                     // 添加弹幕
